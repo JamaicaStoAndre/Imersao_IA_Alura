@@ -27,7 +27,7 @@ A qualidade do ar é outro fator crítico impactado pelas mudanças climáticas 
 
 ## Um Chatbot para Conectar Pessoas e Soluções
 
-![Nosso chatbot "Rob"]([imagens/chatbotRob.jpg)
+![Nosso chatbot Rob]([imagens/chatbotRob.jpg)
 
 Para tornar as informações acessíveis a todos, o projeto inclui um chatbot inteligente, capaz de responder a perguntas como:
 
