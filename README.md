@@ -18,7 +18,7 @@ Nosso projeto também aproveita informações contidas em documentos PDF gerados
 
 ## Respirando Soluções Inteligentes: IA para Monitorar a Qualidade do Ar
 
-![Verifique a evolução que podemos chegar ao exibir uma grade de calor com a previsão em um mapa](imagens/Captura de tela de 2024-05-11 00-14-33.png)
+![Verifique a evolução que podemos chegar ao exibir uma grade de calor com a previsão em um mapa](imagens/chatbot.jpg)
 
 A qualidade do ar é outro fator crítico impactado pelas mudanças climáticas e pela ação humana. Nosso projeto utiliza IA para:
 
@@ -27,7 +27,7 @@ A qualidade do ar é outro fator crítico impactado pelas mudanças climáticas 
 
 ## Um Chatbot para Conectar Pessoas e Soluções
 
-![Inserir imagem de um celular com um chatbot]([imagens/chatbot.png)
+![Inserir imagem de um celular com um chatbot]([imagens/chatbotRob.jpg)
 
 Para tornar as informações acessíveis a todos, o projeto inclui um chatbot inteligente, capaz de responder a perguntas como:
 
