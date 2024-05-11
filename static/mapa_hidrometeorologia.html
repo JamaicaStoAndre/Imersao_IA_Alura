@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_e04137f91b395b34ed75a7034e086f57 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+    <script src="https://cdn.jsdelivr.net/gh/marslan390/BeautifyMarker/leaflet-beautify-marker-icon.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marslan390/BeautifyMarker/leaflet-beautify-marker-icon.min.css"/>
+</head>
+<body>
+    
+    
+    <div style="position: fixed;
+         bottom: 10px;
+         left: 10px;
+         width: 200px;
+         height: 150px;
+         background-color: white;
+         border:2px solid grey;
+         z-index:9999;
+         font-size:14px;">
+         &nbsp;<b>Legenda:</b><br>
+         &nbsp;<i class="fa fa-circle fa-1x" style="color:#5066e0"></i>&nbsp;Baixo<br>
+         &nbsp;<i class="fa fa-circle fa-1x" style="color:#86d384"></i>&nbsp;Normal<br>
+         &nbsp;<i class="fa fa-circle fa-1x" style="color:#ead887"></i>&nbsp;Atenção<br>
+         &nbsp;<i class="fa fa-circle fa-1x" style="color:#e56f6f"></i>&nbsp;Alerta<br>
+         &nbsp;<i class="fa fa-circle fa-1x" style="color:#c184e8"></i>&nbsp;Emergência<br>
+         &nbsp;<i class="fa fa-circle fa-1x" style="color:#000000"></i>&nbsp;N/A-Inoperante<br>
+    </div>
+    
+    
+            <div class="folium-map" id="map_e04137f91b395b34ed75a7034e086f57" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_e04137f91b395b34ed75a7034e086f57 = L.map(
+                "map_e04137f91b395b34ed75a7034e086f57",
+                {
+                    center: [-28.48, -49.0069],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 13,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_bac290d270be6b9ab63a1c4dbdf26bee = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_bac290d270be6b9ab63a1c4dbdf26bee.addTo(map_e04137f91b395b34ed75a7034e086f57);
+        
+    
+            var marker_c4259567abcb80f6ceeec379e8e04722 = L.marker(
+                [-28.424304702991968, -49.12287749287351],
+                {}
+            ).addTo(map_e04137f91b395b34ed75a7034e086f57);
+        
+    
+            var beautify_icon_2a167708b0de7a04d4357e7ac586aac4 = new L.BeautifyIcon.icon(
+                {"backgroundColor": "#5066e0", "borderColor": "black", "borderWidth": 3, "iconShape": "marker", "innerIconStyle": "font-size:10px;padding-top:-5px;", "isAlphaNumericIcon": true, "spin": false, "text": -1, "textColor": "#000000"}
+            )
+            marker_c4259567abcb80f6ceeec379e8e04722.setIcon(beautify_icon_2a167708b0de7a04d4357e7ac586aac4);
+        
+    
+        var popup_ddf29774971ccbdf702a816fc2abf0bc = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_457e71479d7ec2584734abc3245b3883 = $(`<div id="html_457e71479d7ec2584734abc3245b3883" style="width: 100.0%; height: 100.0%;">Nome: TB151B Op:CPRM</div>`)[0];
+                popup_ddf29774971ccbdf702a816fc2abf0bc.setContent(html_457e71479d7ec2584734abc3245b3883);
+            
+        
+
+        marker_c4259567abcb80f6ceeec379e8e04722.bindPopup(popup_ddf29774971ccbdf702a816fc2abf0bc)
+        ;
+
+        
+    
+    
+            marker_c4259567abcb80f6ceeec379e8e04722.bindTooltip(
+                `<div>
+                     PEDRAS GRANDES
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_8d311479c95ed27f7d530c7877c2c983 = L.marker(
+                [-28.42019995874658, -49.10598621814771],
+                {}
+            ).addTo(map_e04137f91b395b34ed75a7034e086f57);
+        
+    
+            var beautify_icon_a14297a1eaf8f98339d22e8505af1a52 = new L.BeautifyIcon.icon(
+                {"backgroundColor": "#86d384", "borderColor": "black", "borderWidth": 3, "iconShape": "marker", "innerIconStyle": "font-size:10px;padding-top:-5px;", "isAlphaNumericIcon": true, "spin": false, "text": 0, "textColor": "#000000"}
+            )
+            marker_8d311479c95ed27f7d530c7877c2c983.setIcon(beautify_icon_a14297a1eaf8f98339d22e8505af1a52);
+        
+    
+        var popup_ddb5bce0a70de9a7589745d54f16f830 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_9ae972083d5ebdddf6023a10b3593d25 = $(`<div id="html_9ae972083d5ebdddf6023a10b3593d25" style="width: 100.0%; height: 100.0%;">Nome: RIO DO POUSO Op:EPAGRI-SC</div>`)[0];
+                popup_ddb5bce0a70de9a7589745d54f16f830.setContent(html_9ae972083d5ebdddf6023a10b3593d25);
+            
+        
+
+        marker_8d311479c95ed27f7d530c7877c2c983.bindPopup(popup_ddb5bce0a70de9a7589745d54f16f830)
+        ;
+
+        
+    
+    
+            marker_8d311479c95ed27f7d530c7877c2c983.bindTooltip(
+                `<div>
+                     RIO DO POUSO
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_61847397242f3628d6c03d9f2141d5ea = L.marker(
+                [-28.474860104202456, -49.043751603912526],
+                {}
+            ).addTo(map_e04137f91b395b34ed75a7034e086f57);
+        
+    
+            var beautify_icon_084b0e6a06fce82635a3e97d31d4534d = new L.BeautifyIcon.icon(
+                {"backgroundColor": "#595959", "borderColor": "black", "borderWidth": 3, "iconShape": "marker", "innerIconStyle": "font-size:10px;padding-top:-5px;", "isAlphaNumericIcon": true, "spin": false, "text": "N/A", "textColor": "#FFFFFF"}
+            )
+            marker_61847397242f3628d6c03d9f2141d5ea.setIcon(beautify_icon_084b0e6a06fce82635a3e97d31d4534d);
+        
+    
+        var popup_febc49fd4bb592b6b6293bd95fe743a6 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_3f0103c6c7926f80bba02339c3bb4be3 = $(`<div id="html_3f0103c6c7926f80bba02339c3bb4be3" style="width: 100.0%; height: 100.0%;">Nome: TOMADA DAG US JL FAZ CRUZEIRO Op:CGT ELETROSUL</div>`)[0];
+                popup_febc49fd4bb592b6b6293bd95fe743a6.setContent(html_3f0103c6c7926f80bba02339c3bb4be3);
+            
+        
+
+        marker_61847397242f3628d6c03d9f2141d5ea.bindPopup(popup_febc49fd4bb592b6b6293bd95fe743a6)
+        ;
+
+        
+    
+    
+            marker_61847397242f3628d6c03d9f2141d5ea.bindTooltip(
+                `<div>
+                     SÃO JOÃO
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_1be13c4be8738e30a810839d56273404 = L.marker(
+                [-28.480767900082217, -49.0391406660733],
+                {}
+            ).addTo(map_e04137f91b395b34ed75a7034e086f57);
+        
+    
+            var beautify_icon_f8ce44ebef6ee2241bbc93501724fb01 = new L.BeautifyIcon.icon(
+                {"backgroundColor": "#ead887", "borderColor": "black", "borderWidth": 3, "iconShape": "marker", "innerIconStyle": "font-size:10px;padding-top:-5px;", "isAlphaNumericIcon": true, "spin": false, "text": 1.5, "textColor": "#000000"}
+            )
+            marker_1be13c4be8738e30a810839d56273404.setIcon(beautify_icon_f8ce44ebef6ee2241bbc93501724fb01);
+        
+    
+        var popup_050745c4b882db40800ee62b23a52ed0 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_da1f4704c67ff3d80b301dcd8672dc21 = $(`<div id="html_da1f4704c67ff3d80b301dcd8672dc21" style="width: 100.0%; height: 100.0%;">Nome: TB164B Op:CPRM</div>`)[0];
+                popup_050745c4b882db40800ee62b23a52ed0.setContent(html_da1f4704c67ff3d80b301dcd8672dc21);
+            
+        
+
+        marker_1be13c4be8738e30a810839d56273404.bindPopup(popup_050745c4b882db40800ee62b23a52ed0)
+        ;
+
+        
+    
+    
+            marker_1be13c4be8738e30a810839d56273404.bindTooltip(
+                `<div>
+                     FRENTE PEDREIRA
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_b6f4acdf00886e899a0f85ff62d3fe2c = L.marker(
+                [-28.470109501152784, -48.99333126615157],
+                {}
+            ).addTo(map_e04137f91b395b34ed75a7034e086f57);
+        
+    
+            var beautify_icon_7bf9a3cc7fe120e02c68e6360e65897c = new L.BeautifyIcon.icon(
+                {"backgroundColor": "#595959", "borderColor": "black", "borderWidth": 3, "iconShape": "marker", "innerIconStyle": "font-size:10px;padding-top:-5px;", "isAlphaNumericIcon": true, "spin": false, "text": "N/A", "textColor": "#FFFFFF"}
+            )
+            marker_b6f4acdf00886e899a0f85ff62d3fe2c.setIcon(beautify_icon_7bf9a3cc7fe120e02c68e6360e65897c);
+        
+    
+        var popup_abc25bc804a46d84d211a927d627671e = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_684e582bf10aba9e0461980548133387 = $(`<div id="html_684e582bf10aba9e0461980548133387" style="width: 100.0%; height: 100.0%;">Nome: TOMADA D'ÁGUA US. JORGE LACERDA Op:CGT ELETROSUL</div>`)[0];
+                popup_abc25bc804a46d84d211a927d627671e.setContent(html_684e582bf10aba9e0461980548133387);
+            
+        
+
+        marker_b6f4acdf00886e899a0f85ff62d3fe2c.bindPopup(popup_abc25bc804a46d84d211a927d627671e)
+        ;
+
+        
+    
+    
+            marker_b6f4acdf00886e899a0f85ff62d3fe2c.bindTooltip(
+                `<div>
+                     PONTE E.B. MARGEM ESQ.
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_83f2a2777f8b14e3a01a8ddfc1af4491 = L.marker(
+                [-28.470058879746055, -48.99182872900419],
+                {}
+            ).addTo(map_e04137f91b395b34ed75a7034e086f57);
+        
+    
+            var beautify_icon_bd33ac2bec9b55bb89a0efc133c44a5a = new L.BeautifyIcon.icon(
+                {"backgroundColor": "#e56f6f", "borderColor": "black", "borderWidth": 3, "iconShape": "marker", "innerIconStyle": "font-size:10px;padding-top:-5px;", "isAlphaNumericIcon": true, "spin": false, "text": 1.8, "textColor": "#000000"}
+            )
+            marker_83f2a2777f8b14e3a01a8ddfc1af4491.setIcon(beautify_icon_bd33ac2bec9b55bb89a0efc133c44a5a);
+        
+    
+        var popup_f8f7018280c2212054c7330bb95388a0 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_cf39c5dee10f894b5c4d214e1b04bf84 = $(`<div id="html_cf39c5dee10f894b5c4d214e1b04bf84" style="width: 100.0%; height: 100.0%;">Nome: TUBARÃO Op:EPAGRI-SC</div>`)[0];
+                popup_f8f7018280c2212054c7330bb95388a0.setContent(html_cf39c5dee10f894b5c4d214e1b04bf84);
+            
+        
+
+        marker_83f2a2777f8b14e3a01a8ddfc1af4491.bindPopup(popup_f8f7018280c2212054c7330bb95388a0)
+        ;
+
+        
+    
+    
+            marker_83f2a2777f8b14e3a01a8ddfc1af4491.bindTooltip(
+                `<div>
+                     PONTE E.B. MARGEM DIR.
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_8cdb251b7ec174ce6fa5d3312a53158b = L.marker(
+                [-28.46464147984432, -48.98425111118565],
+                {}
+            ).addTo(map_e04137f91b395b34ed75a7034e086f57);
+        
+    
+            var beautify_icon_ac6bf5e9b4dd9b996932684c8fc76ff1 = new L.BeautifyIcon.icon(
+                {"backgroundColor": "#595959", "borderColor": "black", "borderWidth": 3, "iconShape": "marker", "innerIconStyle": "font-size:10px;padding-top:-5px;", "isAlphaNumericIcon": true, "spin": false, "text": "N/A", "textColor": "#FFFFFF"}
+            )
+            marker_8cdb251b7ec174ce6fa5d3312a53158b.setIcon(beautify_icon_ac6bf5e9b4dd9b996932684c8fc76ff1);
+        
+    
+        var popup_9c3992a6b9d140c52ae1f26a99dd0e52 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_879d20df32dd0569aa8044d2432de985 = $(`<div id="html_879d20df32dd0569aa8044d2432de985" style="width: 100.0%; height: 100.0%;">Nome: TUBARÃO - ESCRIT. FISC. DE OBRAS Op:DNOS</div>`)[0];
+                popup_9c3992a6b9d140c52ae1f26a99dd0e52.setContent(html_879d20df32dd0569aa8044d2432de985);
+            
+        
+
+        marker_8cdb251b7ec174ce6fa5d3312a53158b.bindPopup(popup_9c3992a6b9d140c52ae1f26a99dd0e52)
+        ;
+
+        
+    
+    
+            marker_8cdb251b7ec174ce6fa5d3312a53158b.bindTooltip(
+                `<div>
+                     ESCRIT. FISC. DE OBRAS
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_f8ef0cdb68be454f94c017fbc37e2dff = L.marker(
+                [-28.46162246909622, -48.97660876030802],
+                {}
+            ).addTo(map_e04137f91b395b34ed75a7034e086f57);
+        
+    
+            var beautify_icon_22ba58ea8486005cd22d8309b6589f05 = new L.BeautifyIcon.icon(
+                {"backgroundColor": "#c184e8", "borderColor": "black", "borderWidth": 3, "iconShape": "marker", "innerIconStyle": "font-size:10px;padding-top:-5px;", "isAlphaNumericIcon": true, "spin": false, "text": 2, "textColor": "#000000"}
+            )
+            marker_f8ef0cdb68be454f94c017fbc37e2dff.setIcon(beautify_icon_22ba58ea8486005cd22d8309b6589f05);
+        
+    
+        var popup_595b58355a3e7a9a0013c694bcf358f1 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_43bcc14c01f9149cc97802cadc743966 = $(`<div id="html_43bcc14c01f9149cc97802cadc743966" style="width: 100.0%; height: 100.0%;">Nome: TUBARÃO  Op:SDE-SC</div>`)[0];
+                popup_595b58355a3e7a9a0013c694bcf358f1.setContent(html_43bcc14c01f9149cc97802cadc743966);
+            
+        
+
+        marker_f8ef0cdb68be454f94c017fbc37e2dff.bindPopup(popup_595b58355a3e7a9a0013c694bcf358f1)
+        ;
+
+        
+    
+    
+            marker_f8ef0cdb68be454f94c017fbc37e2dff.bindTooltip(
+                `<div>
+                     Ponte trilho Passagem
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_49d5bfbec894194e5e7578c5153f6ad3 = L.marker(
+                [-28.457701093799717, -48.984132353829054],
+                {}
+            ).addTo(map_e04137f91b395b34ed75a7034e086f57);
+        
+    
+            var beautify_icon_69f96df159e8879afa5aafe28b287020 = new L.BeautifyIcon.icon(
+                {"backgroundColor": "#c184e8", "borderColor": "black", "borderWidth": 3, "iconShape": "marker", "innerIconStyle": "font-size:10px;padding-top:-5px;", "isAlphaNumericIcon": true, "spin": false, "text": 4, "textColor": "#000000"}
+            )
+            marker_49d5bfbec894194e5e7578c5153f6ad3.setIcon(beautify_icon_69f96df159e8879afa5aafe28b287020);
+        
+    
+        var popup_a17dc1f2b0beceb29263471896be28fd = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_f0922d6bfba70c933d07e3a5edf2c8a8 = $(`<div id="html_f0922d6bfba70c933d07e3a5edf2c8a8" style="width: 100.0%; height: 100.0%;">Nome: TB150B  Op:CPRM</div>`)[0];
+                popup_a17dc1f2b0beceb29263471896be28fd.setContent(html_f0922d6bfba70c933d07e3a5edf2c8a8);
+            
+        
+
+        marker_49d5bfbec894194e5e7578c5153f6ad3.bindPopup(popup_a17dc1f2b0beceb29263471896be28fd)
+        ;
+
+        
+    
+    
+            marker_49d5bfbec894194e5e7578c5153f6ad3.bindTooltip(
+                `<div>
+                     Bairro Sto André
+                 </div>`,
+                {"sticky": true}
+            );
+        
+</script>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Site para analisar previsão de cheias e qualidade do ar na região da Amurel em Santa Catarina">
+    <meta name="author" content="João Maykon Mendes Ferreira">
+
+    <title>Sistema de alertas Amurel</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
+    
+    <!-- Custom styles for this template-->
+    <link href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper Inicio do Código da pagina -->
+  <div id="wrapper">
+
+    <!-- Barra Lateral (Menu) -->
+    <ul class="navbar-nav bg-gradient-secondary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <!-- Sidebar - Primeira caixa com ícone-->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-laugh-wink"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">Previsões Ambientais</div>
+        </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - link index Dashboard -->
+        <li class="nav-item active">
+            <a class="nav-link" href="/">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
+        </li>
+
+        <!-- Divisor -->
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Nav Item - link Hidrometeorologia -->
+        <li class="nav-item">
+            <a class="nav-link" href="/hidrometeorologia">
+                <i class="fas fa-water"></i>
+                <span>Hidrometeorologia</span>
+            </a>
+        </li>
+
+        <!-- Nav Item - Link Qualidade do Ar Page -->
+        <li class="nav-item">
+            <a class="nav-link" href="/qualidadedoar">
+                <i class="fas fa-wind"></i>
+                <span>Qualidade do Ar</span>
+            </a>
+        </li>
+
+        <!-- Divisor Paginas-->        
+        <hr class="sidebar-divider">
+
+        <!-- Nav Item - Colapso de Ferramentas -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Ferramentas</span>
+            </a>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Opções:</h6>
+                     <!-- Nav Item - Colapso de Opções -->
+                    <a class="collapse-item" href="buttons.html">Mapa de Inundação</a>
+                    <a class="collapse-item" href="cards.html">Previsão do Tempo</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Nav Item - Utilities Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                aria-expanded="true" aria-controls="collapseUtilities">
+                <i class="fas fa-fw fa-wrench"></i>
+                <span>Opções</span>
+            </a>
+            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Opções:</h6>
+                    <a class="collapse-item" href="utilities-color.html">Cores</a>
+                    <a class="collapse-item" href="utilities-border.html">Bordas</a>
+                    <a class="collapse-item" href="utilities-animation.html">Animações</a>
+                    <a class="collapse-item" href="utilities-other.html">Outras</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+
+    </ul>
+    <!-- Fim do menu lateral  -->
+
+    <!-- Inicio do conteúdo principal -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Inicio do contéudo da página -->
+            <div class="container-fluid">
+
+                <!-- Cabeçalho da página -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">Mapa AQI</h1>
+                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                            class="fas fa-download fa-sm text-white-50"></i> Gerar relatório</a>
+                </div>
+
+                <!-- Primeira linha -->
+                <div class="row">
+                    <!-- Card Mapa hidrológico -->
+                    <div class="col-xl-8 col-lg-7">
+                        <div class="card shadow mb-4">
+                            <!-- Card Mapa hidrológico Header - Dropdown -->
+                            <div
+                                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">Mapa de qualidade do ar</h6>
+                                <div class="dropdown no-arrow">
+                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                    </a>
+                                    <!--Três botões ao lado direito de histograma-->
+                                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                        aria-labelledby="dropdownMenuLink">
+                                        <div class="dropdown-header">Outras Opções:</div>
+                                        <a class="dropdown-item" href="#">Anual</a>
+                                        <a class="dropdown-item" href="#">Mensal</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">Outras possibilidades</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Conteúdo do card Mapa -->
+                            <div class="card-body">
+                                <div class="chart-area" style="overflow: hidden; position: relative; height: 600px;">
+                                  <iframe src="{{ url_for('static', filename='mapa_AQI.html') }}" style="border: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+                                </div>
+                              </div>
+                              
+                            <!-- Fim do mapa-->
+                        </div>
+                    </div>
+
+                    <!--Card Previsão do tempo-->
+                    <div class="col-xl-4 col-lg-5">
+                        <div class="card shadow mb-4">
+                            <!-- Card Previsão do tempo, Header - Dropdown -->
+                            <div
+                                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">Previsão do Tempo</h6>                                
+                            </div>
+                            <!-- Carde meteorológico-->
+                            <div
+                                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <!--Link do widget meteorológico-->
+                                <div id="ww_c919ab25ba7bb" v='1.3' loc='id' a='{"t":"horizontal","lang":"pt","sl_lpl":1,"ids":["wl5142"],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"#000000","cl_font":"#FFFFFF","cl_cloud":"#FFFFFF","cl_persp":"#81D4FA","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722"}'>Mais previsões: <a href="https://oneweather.org/sao_paulo/30_days/" id="ww_c919ab25ba7bb_u" target="_blank">30 day weather forecast Sao Paulo</a></div><script async src="https://app2.weatherwidget.org/js/?id=ww_c919ab25ba7bb"></script>
+                            </div>
+                        </div>
+                        <!--Qualidade do ar-->
+                        <div class="card shadow mb-4">
+                            <!-- Card Header - Dropdown -->
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">IQA Bogotá-CO</h6>                                    
+                            </div>
+                            <!-- Card Body -->
+                            <div class="text-center">
+                                <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
+                                    src="/static/img/qualidade_ar_bogota.jpg" alt="...">
+                            </div>
+                        </div> 
+                        <!--Bot-->       
+                               <!-- Ícone do Chatbot minimizado -->
+                               <div id="chatbot-minimized-icon" style="display: none; position: fixed; bottom: 20px; right: 20px; cursor: pointer;">
+                                <img src="/static/img/robv4-Busto.png" alt="Chatbot Icon">
+                            </div>
+
+                            <!-- Contêiner do Chatbot -->
+                            <div class="chat_window">
+                                <!-- Conteúdo do chatbot é incluído aqui dentro -->
+                                {% include 'bot.html' %}
+                            </div>
+
+                        <!--Fim do bot-->
+                    </div>
+                </div>
+
+ 
+            </div>
+            <!-- Fim do contéudo da página -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Todos direitos reservados &copy; João Maykon 2024</span>
+                </div>
+            </div>
+        </footer>
+        <!-- End of Footer -->
+
+    </div>
+    
+    <!-- Fim do conteúdo principal -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+    <!-- !-- Custom fonts for this template--> 
+    <link href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
+    <!-- Outras fontes do Google Fonts podem permanecer como estão, pois são carregadas de um CDN externo -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+
+    <!-- Custom styles for this template-->
+    <link href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}" rel="stylesheet">
+        
+    <!-- Bootstrap core JavaScript -->
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+    <!-- Core plugin JavaScript -->
+    <script src="{{ url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+    <!-- Custom scripts for all pages -->
+    <script src="{{ url_for('static', filename='js/sb-admin-2.min.js') }}"></script>   
+
+</body>
+
+</html>

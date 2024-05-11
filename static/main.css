@@ -1,0 +1,364 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background-color: #edeff2;
+	font-family: 'Calibri', 'Roboto', sans-serif;
+}
+
+.row.padded_row,
+.row.padded_row > div {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+/* layout and common global classes */
+/* ---------------------------------------------------------------------- */
+/* Novo estilo da caixa de dialogo */
+.bottom_wrapper.clearfix {
+    display: flex; /* Usa flexbox para alinhar input e botão */
+    align-items: center; /* Centraliza os itens verticalmente */
+    justify-content: space-between; /* Espaço entre o input e o botão */
+    padding: 10px; /* Espaçamento interno */
+    box-sizing: border-box; /* Inclui padding no cálculo da largura */
+}
+
+.input_field {
+    flex-grow: 1; /* Permite que o input cresça para preencher o espaço */
+    margin-right: 10px; /* Espaço entre o input e o botão */
+    padding: 10px 20px; /* Espaçamento interno do input */
+    border: 1px solid #ccc; /* Borda do input */
+    border-radius: 20px; /* Bordas arredondadas */
+    outline: none; /* Remove o contorno ao focar */
+}
+
+.send_button {
+    padding: 10px 20px; /* Espaçamento interno do botão */
+    background-color: #4CAF50; /* Cor de fundo do botão */
+    border: none; /* Sem borda */
+    border-radius: 20px; /* Bordas arredondadas */
+    color: white; /* Cor do texto */
+    cursor: pointer; /* Muda o cursor para indicar que é clicável */
+    outline: none; /* Remove o contorno ao focar */
+}
+
+
+.chat_window {
+	position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+	height: 100%;
+    max-height: 500px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.top_menu {
+	background-color: #fff;
+	padding: 13px 0px;
+	box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
+}
+
+.top_menu .title {
+	text-align: center;
+	color: #337ab7;
+	font-size: 20px;
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    background-color: #007bff;
+    color: white;
+    border-top-left-radius: 8px; /* Se o chatbot tiver cantos arredondados */
+    border-top-right-radius: 8px;
+}
+
+/* Ícones */
+/* Estilos para os ícones de minimizar e fechar */
+.chat_controls {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#chatbot-minimized-icon {
+    display: none; /* Escondido por padrão */
+    position: fixed;
+    bottom: 20px; /* Ajuste conforme necessário */
+    right: 20px; /* Ajuste conforme necessário */
+    z-index: 1000; /* Assegura que fique acima de outros elementos */
+    /* Adicione estilos adicionais conforme necessário */
+}
+
+.chat_control_icon {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.chat_header span {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+
+/* messages inside the chatbox */
+#chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    height: 400px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+/* ---------------------------------------------------------------------- */
+
+.messages {
+	/* Original
+	position: relative;
+	list-style: none;
+	padding: 20px 10px 0 10px;
+	margin: 0;
+	height: 500px;
+	overflow: scroll; */
+	flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px;
+	margin-bottom: 50px; /* Espaço para a área de input, ajuste conforme necessário */
+
+}
+
+.messages .message {
+	clear: both;
+	overflow: hidden;
+	margin-bottom: 20px;
+	transition: all 0.5s linear;
+	opacity: 0;
+}
+
+.messages .message .avatar {
+	height: 40px;
+	width: 40px;
+	background-size: cover !important;
+	border-radius: 50%;
+	display: inline-block;
+}
+
+.messages .message .timestamp {
+	font-size: 10px;
+	font-weight: 300;
+	text-align: right;
+	margin-top: 5px;
+}
+
+.messages .message.appeared {
+	opacity: 1;
+}
+
+.messages .message .text_wrapper {
+	display: inline-block;
+	padding: 20px;
+	border-radius: 6px;
+	min-width: 150px;
+	position: relative;
+}
+
+.messages .message .text_wrapper::after,
+.messages .message .text_wrapper:before {
+	top: 18px;
+	border: solid transparent;
+	content: ' ';
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.messages .message .text_wrapper::after {
+	border-width: 13px;
+	margin-top: 0px;
+}
+
+.messages .message .text_wrapper::before {
+	border-width: 15px;
+	margin-top: -2px;
+}
+
+/* bot message */
+
+.messages .message.left .avatar {
+	float: left;
+	/* background: url('./img/bot.jpg'); */
+	background: url('./img/robv4-Busto.png');
+}
+
+.messages .message.left .text_wrapper {
+	background-color: #f3eeca;
+	margin-left: 20px;
+}
+
+.messages .message.left .text_wrapper::after,
+.messages .message.left .text_wrapper::before {
+	right: 100%;
+	border-right-color: #f3eeca;
+}
+
+.messages .message.left .timestamp {
+	color: #b0742f;
+}
+
+/* user message
+
+.messages .message.right .avatar {
+	float: right;
+	background: url('./img/guy.jpg');
+}
+
+.messages .message.right .text_wrapper {
+	background-color: #b0d4f3;
+	margin-right: 20px;
+	float: right;
+}
+
+.messages .message.right .text_wrapper::after,
+.messages .message.right .text_wrapper::before {
+	left: 100%;
+	border-left-color: #b0d4f3;
+}
+
+.messages .message.right .timestamp {
+	color: #1a5770;
+} */
+
+/* NOvo css do bot */
+/* user message */
+
+.messages .message.right .avatar {
+    float: right;
+    background-image: url('/static/img/guy.jpg'); /* Certifique-se de que este caminho está correto */
+    background-size: cover; /* Garante que a imagem do avatar cubra toda a área */
+    border-radius: 50%; /* Opcional: torna o avatar circular */
+    width: 50px; /* Ajuste conforme necessário */
+    height: 50px; /* Ajuste conforme necessário */
+    margin-left: 10px; /* Adicione um pouco de espaço entre o avatar e a mensagem */
+}
+
+.messages .message.right .text_wrapper {
+    background-color: #b0d4f3;
+    margin-right: 20px;
+    float: right;
+    border-radius: 8px; /* Ajuste para bordas arredondadas */
+    padding: 10px; /* Adicione um pouco de preenchimento interno */
+    max-width: 80%; /* Evitar que a mensagem ocupe a largura total */
+}
+
+.messages .message.right .text_wrapper::after,
+.messages .message.right .text_wrapper::before {
+    content: ''; /* Garanta que o pseudo-elemento seja gerado */
+    position: absolute; /* Posicionamento absoluto em relação ao pai */
+    top: 50%; /* Alinhar com o topo da mensagem */
+    right: -10px; /* Ajuste conforme necessário */
+    border-style: solid;
+    border-width: 10px; /* Ajuste conforme necessário */
+    border-color: transparent;
+    border-right-color: #b0d4f3; /* Deve ser a mesma cor de fundo da mensagem */
+    transform: translateY(-50%); /* Centraliza o pseudo-elemento verticalmente */
+}
+
+.messages .message.right .timestamp {
+    color: #1a5770;
+    float: right; /* Garantir que o carimbo de data/hora fique à direita */
+    clear: both; /* Evita que elementos flutuantes afetem o layout */
+    font-size: 0.75em; /* Ajuste conforme necessário */
+    margin-top: 5px; /* Adicionar espaço acima do carimbo de data/hora */
+    margin-right: 30px; /* Ajuste conforme necessário */
+}
+
+/* Fim do novo css do bot */
+
+/* text inpur from user */
+
+.bottom_wrapper {
+	display: flex;
+    padding: 10px;
+	box-sizing: border-box; /* Garante que o padding não adicione largura extra */
+    background-color: #f4f4f4; /* Opcional: para diferenciar do fundo das mensagens */
+}
+
+.bottom_wrapper #msg_input {
+	flex-grow: 1;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-right: 10px; /* Para espaço entre o input e o botão */
+	outline: none; /* Remove o outline quando o input está focado */
+}
+
+.app_button_1 {
+	/* Original
+	width: 140px;
+	background-color: #a3d063;
+	border-radius: 50px;
+	cursor: pointer;
+	padding: 12px;
+
+	color: #fff;
+	font-size: 18px;
+	font-weight: 300;
+	text-align: center; */
+	padding: 5px 10px;
+    background-color: #a3d063;
+    border: none;
+    border-radius: 20px;
+	color: white; /* Cor do texto para o botão */
+    cursor: pointer;
+	outline: none; /* Remove o outline quando o botão está focado */
+
+}
+
+/* faq section | right side */
+/* ---------------------------------------------------------------------- */
+
+.panel-group {
+	margin: 20px;
+}
+
+.panel-heading [data-toggle='collapse']:after {
+	font-family: 'FontAwesome';
+	content: '\f054';
+	float: right;
+	font-size: 18px;
+	line-height: 22px;
+	transition: all 0.2s linear;
+
+	-webkit-transform: rotate(-90deg);
+	-moz-transform: rotate(-90deg);
+	-ms-transform: rotate(-90deg);
+	-o-transform: rotate(-90deg);
+	transform: rotate(-90deg);
+}
+
+.panel-heading [data-toggle='collapse'].collapsed:after {
+	-webkit-transform: rotate(90deg);
+	-moz-transform: rotate(90deg);
+	-ms-transform: rotate(90deg);
+	-o-transform: rotate(90deg);
+	transform: rotate(90deg);
+}

@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Site para analisar previsão de cheias e qualidade do ar na região da Amurel em Santa Catarina">
+    <meta name="author" content="João Maykon Mendes Ferreira">
+
+    <title>Sistema de alertas Amurel</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
+    
+    <!-- Custom styles for this template-->
+    <link href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <!--Chatbot-->
+    <!-- <link rel="stylesheet" type="text/css" href="static/main.css"> -->
+    <link rel="stylesheet" type="text/css" href="/static/chatbot.css">
+
+
+    <script src="https://cdn.jsdelivr.net/npm/raphael"></script>
+    <script src="https://cdn.jsdelivr.net/npm/justgage@1.4.0"></script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['gauge']});
+        google.charts.setOnLoadCallback(drawChart);
+      
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Label', 'Value'],
+                ['IQA', 38], // Valor inicial, pode ser alterado dinamicamente
+            ]);
+
+            var options = {
+                width: '100%', // Ajustado para corresponder à largura da div
+                height: 'auto', // Ajustado para corresponder à altura da div
+                redFrom: 100, redTo: 150,
+                yellowFrom:50, yellowTo: 100,
+                greenFrom:0, greenTo: 50,
+                minorTicks: 10
+            };
+
+            var chart = new google.visualization.Gauge(document.getElementById('velocimetro'));
+            chart.draw(data, options);
+            }
+
+            // Adiciona um ouvinte de evento de redimensionamento da janela para redesenhar o gráfico
+            window.onresize = function() {
+            drawChart();
+
+            };
+
+      </script>
+    
+</head>
+
+<body id="page-top" style="background-color: #595656">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-secondary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Primeira caixa com ícone-->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">Previsões Ambientais</div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="/">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+            <!-- Divisor -->
+            <hr class="sidebar-divider">
+
+            <!-- Nav Item - Hidrometeorologia Page -->
+            <li class="nav-item">
+                <a class="nav-link" href="/hidrometeorologia">
+                    <i class="fas fa-water"></i>
+                    <span>Hidrometeorologia</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - Qualidade do Ar Page -->
+            <li class="nav-item">
+                <a class="nav-link" href="/qualidadedoar">
+                    <i class="fas fa-wind"></i>
+                    <span>Qualidade do Ar</span>
+                </a>
+            </li>
+
+            <!-- Divisor Paginas-->
+            
+            <hr class="sidebar-divider">
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Ferramentas</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Opções:</h6>
+                        <a class="collapse-item" href="buttons.html">Mapa de Inundação</a>
+                        <a class="collapse-item" href="cards.html">Previsão do Tempo</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Opções</span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Opções:</h6>
+                        <a class="collapse-item" href="utilities-color.html">Cores</a>
+                        <a class="collapse-item" href="utilities-border.html">Bordas</a>
+                        <a class="collapse-item" href="utilities-animation.html">Animações</a>
+                        <a class="collapse-item" href="utilities-other.html">Outras</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+        <!-- Fim do menu lateral  -->
+
+        <!-- Inicio do conteúdo página principal -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Incio do conteúdo-->
+            <div id="content">
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Cabeçalho da página -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                    </div>
+
+                    <!-- Primeira linha -->   
+                    <div class="container-fluid">
+                        <div class="row">
+                            <!--Colunada esquerda-->
+                            <div class="col-md-8">                                
+                                <!--Grafico Elevação do rio tubarao-->
+                                <div class="card shadow mb-4">
+                                    <!-- Card Header - Dropdown -->
+                                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                        <h6 class="m-0 font-weight-bold text-primary">Elevação do Rio (Hora em Hora)</h6>
+                                        <div class="dropdown no-arrow">
+                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                            </a>
+                                            <!--Três botões ao lado direito de histograma-->
+                                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                aria-labelledby="dropdownMenuLink">
+                                                <div class="dropdown-header">Outras Opções:</div>
+                                                <a class="dropdown-item" href="#">Anual</a>
+                                                <a class="dropdown-item" href="#">Mensal</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="#">Outras possibilidades</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Conteúdo do gráfico -->
+                                    <div class="card-body">
+                                        <canvas id="graficoElevacaoRio"></canvas>
+                                    </div>                                
+                                </div>
+                                <!--Fim gráfico linha elevação rio tubarão-->
+                                <!--Início gráfico pluviometria-->
+                                <div class="card shadow mb-4">
+                                    <!-- Card Header - Dropdown -->
+                                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                        <h6 class="m-0 font-weight-bold text-primary">Acumulado de chuvas por hora</h6>
+                                        <div class="dropdown no-arrow">
+                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                            </a>
+                                            <!--Três botões ao lado direito de histograma-->
+                                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                aria-labelledby="dropdownMenuLink">
+                                                <div class="dropdown-header">Outras Opções:</div>
+                                                <a class="dropdown-item" href="#">Anual</a>
+                                                <a class="dropdown-item" href="#">Mensal</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="#">Outras possibilidades</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Conteúdo do gráfico -->
+                                    <div class="card-body">
+                                        <canvas id="graficoPluviometria"></canvas>
+                                    </div>                                   
+                                </div>                                
+                                <!--Fim gráfico pluviometria-->
+                                <!--Inicio Monitor Emergência-->
+                                <div class="card shadow mb-4">
+                                    <!-- Card Header - Dropdown -->
+                                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                        <h6 class="m-0 font-weight-bold text-primary">Monitor de emergência</h6>                                    
+                                    </div>
+                                    <!-- Card Body -->
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <!-- Bairros em Atenção -->
+                                            <!-- Bairros em atenção - Azul - Card Example -->
+                                            <div class="col-xl-3 col-md-6 mb-4">
+                                                <div class="card border-left-info shadow h-100 py-2">
+                                                    <div class="card-body">
+                                                        <div class="row no-gutters align-items-center">
+                                                            <div class="col mr-2">
+                                                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                                    Bairros em atenção</div>
+                                                                <div class="h5 mb-0 font-weight-bold text-gray-800">2</div>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <i class="fas fa-exclamation-triangle fa-2x text-gray-300"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Bairros em Alerta -->
+                                            <div class="col-xl-4 col-md-6 mb-4">
+                                                <!-- ... Seu código do card de Bairros em Alerta ... -->
+                                                <div class="card border-left-warning shadow h-100 py-2">
+                                                    <div class="card-body">
+                                                        <div class="row no-gutters align-items-center">
+                                                            <div class="col mr-2">
+                                                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                                    Bairros em alerta</div>
+                                                                <div class="h5 mb-0 font-weight-bold text-gray-800">1</div>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <i class="fas fa-exclamation-triangle fa-2x text-gray-300"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Bairros em Emergência -->
+                                            <div class="col-xl-4 col-md-6 mb-4">
+                                                <!-- ... Seu código do card de Bairros em Emergência ... -->
+                                                <div class="card border-left-danger shadow h-100 py-2">
+                                                    <div class="card-body">
+                                                        <div class="row no-gutters align-items-center">
+                                                            <div class="col mr-2">
+                                                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                                                    Bairros em emergência</div>
+                                                                <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <i class="fas fa-exclamation-triangle fa-2x text-gray-300"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Fim Monitor Emergência-->
+                                <!--Inicio Tabela Enchentes-->                                
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Níveis de enchentes Tubarão</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" style="vertical-align: middle;"  style="text-align:left;" id="dataTable" width="100%" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nível de enchente</th>
+                                                        <th>Cota(m)e Cota(m-IBGE)</th>
+                                                        <th>Situação</th>                                                                                       
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Normalidade</td>
+                                                        <td>2,20 (1,20)</td>
+                                                        <td><b>“Normalidade”</b>: Período seco, ou Prev. <b> inferior a 30 mm.</b><br>
+                                                            <b>“Observação”</b>: Vento de chuva Prev. <b>Sup 30 mm</b>. A Prev. de chuva das <b>barragens de
+                                                            contenção de cheias<b> deve ser <b>considerada</b>.
+                                                        </td>                                            
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Atenção</td>
+                                                        <td>2,20 (1,20)</td>
+                                                        <td>Início do estado de <b>“Atenção”</b> para cota <b>igual
+                                                            ou superior.</b>
+                                                        </td>                                            
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Emergência</td>
+                                                        <td>3,20 <b>(2,20)</b></td>
+                                                        <td>Início do estado de <b>“Emergência”</b> para cota
+                                                        <b>igual ou superior.</b>
+                                                        </td>                                            
+                                                    </tr>
+                                                    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Fim Tabela enchentes-->
+                                <!--Inicio Tabela Níveis de severidade-->                                
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Níveis de Severidade
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Severidade</th>
+                                                        <th>Cota(m)e Cota(m-IBGE)</th>
+                                                        <th>Bairros afetados</th>                                                                                       
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>BAIXA</td>
+                                                        <td><b>3,40 (2,40)</b></td>
+                                                        <td>Inicio dos alagamentos nos bairros de
+                                                        <b>Monte Castelo e Santo Antônio de
+                                                            Pádua.</b>
+                                                        </td>                                            
+                                                    </tr>
+                                                    <tr>
+                                                        <td>MODERADA</td>
+                                                        <td>3,80 <b>(2,80)</b></td>
+                                                        <td>Inicio dos alagamentos nos bairros de
+                                                        <b>Santa Luzia e São Cristóvão.</b>
+                                                        </td>                                            
+                                                    </tr>
+                                                    <tr>
+                                                        <td>MODERADA</td>
+                                                        <td><b>4,20 (3,20)</b></td>
+                                                        <td><b>Aumento da inundação<b> nos bairros
+                                                            atingidos.
+                                                        </td>                                            
+                                                    </tr>
+                                                    <tr>
+                                                        <td>SEVERA</td>
+                                                        <td>4,60 <b>(3,60)</b></td>
+                                                        <td>Inicio dos alagamentos em <b>São
+                                                            Martinho.</b>
+                                                        </td>                                            
+                                                    </tr>
+                                                    <tr>
+                                                        <td>EXTREMA</td>
+                                                        <td><b>4,90 (3,90)</b></td>
+                                                        <td><b>Aumento da inundação<b> nos bairros
+                                                            atingidos.
+                                                        </td>                                            
+                                                    </tr>
+                                                    <tr>
+                                                        <td>EXTREMA</td>
+                                                        <td>5,90 <b>(4,90)</b></td>
+                                                        <td>Inicio dos alagamentos nos bairros <b>km
+                                                            60 e São João Margem Direita.</b>
+                                                        </td>                                            
+                                                    </tr>
+                                                    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Fim Tabela enchentes-->
+                            </div>
+                            <!-- Coluna da direita linha 1 -->
+                            <div class="col-md-4"> 
+                                <!--Índece de Satisfação-->
+                                <div class="card shadow mb-4">
+                                    <!-- Card Header - Dropdown -->
+                                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                        <h6 class="m-0 font-weight-bold text-primary">Índece de Satisfação</h6>                                    
+                                    </div>
+                                    <!-- Card Body -->
+                                    <div class="text-center">
+                                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
+                                            src="/static/img/indece_satisfacao.avif" alt="...">
+                                    </div>
+                                </div>                                
+                                <!--Fim Índece de Satisfação-->                                                               
+                                <!--Previsão do tempo-->
+                                <div class="card shadow mb-4">
+                                    <!-- Card Previsão do tempo, Header - Dropdown -->
+                                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                        <h6 class="m-0 font-weight-bold text-primary">Previsão do Tempo</h6>                                
+                                    </div>
+                                    <!--Link do widget Previsão meteorológico-->
+                                        <div id="ww_c919ab25ba7bb" v='1.3' loc='id' a='{"t":"horizontal","lang":"pt","sl_lpl":1,"ids":["wl5142"],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"#000000","cl_font":"#FFFFFF","cl_cloud":"#FFFFFF","cl_persp":"#81D4FA","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722"}'>Mais previsões: <a href="https://oneweather.org/sao_paulo/30_days/" id="ww_c919ab25ba7bb_u" target="_blank">30 day weather forecast Sao Paulo</a></div><script async src="https://app2.weatherwidget.org/js/?id=ww_c919ab25ba7bb"></script>
+                                </div>
+                                <!--Fim Previsão do tempo-->
+                                <!--IQA-->
+                                <div class="card shadow mb-4">
+                                    <!-- Card Header - Dropdown -->
+                                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                        <h6 class="m-0 font-weight-bold text-primary">Índice de qualidade do ar (AQI)</h6>                                    
+                                    </div>
+                                    <!-- Card Body -->
+                                    <div class="card-body">
+                                        <!-- ... Seu conteúdo de IQA ... -->                                                                                  
+                                            <div class="card-body">
+                                                <div class="text-center">
+                                                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
+                                                        src="/static/img/qualidade-do-ar.jpg" alt="...">
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>                                
+                                <!--Fim IQA-->
+                                <!--MP2,2-->
+                                <div class="card shadow mb-4">
+                                    <!-- Card Header - Dropdown -->
+                                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                        <h6 class="m-0 font-weight-bold text-primary">PM 2,5</h6>                                    
+                                    </div>
+                                    <!-- Card Body -->
+                                    <div class="text-center">
+                                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
+                                            src="/static/img/GYR.png" alt="...">
+                                    </div>
+                                </div>                                
+                                <!--Fim PM 2,5-->    
+                                <!--Bot-->       
+                               <!-- Ícone do Chatbot minimizado -->
+                                    <div id="chatbot-minimized-icon" style="display: none; position: fixed; bottom: 20px; right: 20px; cursor: pointer;">
+                                        <img src="/static/img/robv4-Busto.png" alt="Chatbot Icon">
+                                    </div>
+                                    <!-- Contêiner do Chatbot -->
+                                <div class="chat_window">
+                                    <!-- Conteúdo do chatbot é incluído aqui dentro -->
+                                    {% include 'chatbot.html' %}
+                                </div>
+                                <!--Fim do bot-->
+                            </div>
+                        </div>
+                    </div>
+                    <!--Fim primeira linha-->                    
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- Fim do conteúdo -->
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Todos direitos reservados &copy; João Maykon 2024</span>
+                        <button onclick="limparHistoricoChatbot()">Limpar Histórico do Chatbot</button>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+        </div>        
+        <!-- Fim do conteúdo da página -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+   
+        <!-- Custom fonts for this template-->
+        <link href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
+        <!-- Outras fontes do Google Fonts podem permanecer como estão, pois são carregadas de um CDN externo -->
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+
+        <!-- Custom styles for this template-->
+        <link href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}" rel="stylesheet">
+            
+        <!-- Bootstrap core JavaScript -->
+        <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+        <!--Script Bot-->
+        <!-- vendor script files -->
+        <!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
+
+        <!--Scripts Limpar histórico Chatbot -->
+        <script src="/static/chatbot_limparHistorico.js"></script>
+
+        
+        <!-- Core plugin JavaScript -->
+        <script src="{{ url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+        <!--Script de gráficos-->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="{{ url_for('static', filename='js/grafico.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/pluviometria.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/qualidade_ar.js') }}"></script>
+
+        <!-- <script src="https://cdn.jsdelivr.net/npm/raphael"></script>
+        <script src="https://cdn.jsdelivr.net/npm/justgage@1.4.0"></script> -->
+
+
+
+        
+        <!-- Custom scripts for all pages -->
+        <script src="{{ url_for('static', filename='js/sb-admin-2.min.js') }}"></script>    
+
+</body>
+
+</html>
+    

@@ -1,0 +1,60 @@
+
+Documentação `chatbot.js`
+========================
+
+Funções:
+--------
+
+getCurrentTimestamp():
+    - Descrição: Retorna o timestamp atual para a criação de mensagens.
+    - Retorna: Objeto Date representando a data e hora atual.
+
+renderMessageToScreen(args):
+    - Descrição: Renderiza uma mensagem na tela do chat baseada nos argumentos fornecidos.
+    - Argumentos:
+        - args: Objeto contendo texto da mensagem, timestamp e lado da mensagem (esquerda para bot, direita para usuário).
+
+Eventos:
+--------
+
+$(document).ready():
+    - Descrição: Configura um evento para enviar a mensagem quando a tecla 'Enter' é pressionada.
+
+showUserMessage(message, datetime):
+    - Descrição: Exibe a mensagem do usuário na tela do chat. Mensagens do usuário são alinhadas à direita.
+    - Argumentos:
+        - message: Texto da mensagem do usuário.
+        - datetime: Timestamp da mensagem a ser renderizada.
+
+showBotMessage(message, datetime):
+    - Descrição: Exibe a mensagem do chatbot na tela do chat. Mensagens do bot são alinhadas à esquerda.
+    - Argumentos:
+        - message: Texto da mensagem do bot.
+        - datetime: Timestamp da mensagem a ser renderizada.
+
+sendMessageToBackend(message):
+    - Descrição: Envia a mensagem do usuário para o backend e processa a resposta.
+    - Argumentos:
+        - message: Texto da mensagem do usuário a ser enviada.
+
+$('#send_button').on('click', function (e)):
+    - Descrição: Evento de clique para enviar a mensagem do usuário e limpar o campo de entrada.
+
+Variáveis Globais:
+------------------
+
+acceptUserInput:
+    - Descrição: Variável de controle para determinar se o chatbot está pronto para aceitar mensagens do usuário.
+
+Funções Auxiliares:
+-------------------
+
+addToConversation(message, sender):
+    - Descrição: Adiciona uma mensagem ao histórico de conversas no localStorage.
+    - Argumentos:
+        - message: Texto da mensagem.
+        - sender: Remetente da mensagem ('user' ou 'bot').
+
+loadConversationHistory():
+    - Descrição: Carrega e exibe o histórico de conversas do localStorage.
+
