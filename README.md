@@ -38,6 +38,21 @@ Para tornar as informações acessíveis a todos, o projeto inclui um chatbot in
 
 Este chatbot também auxilia a população em perigo e gestores com previsões baseadas nos modelos de IA e nos dados integrados, proporcionando respostas rápidas e ações preventivas.
 
+## Integração e Orquestração com `webhook.py`
+
+O arquivo `webhook.py` serve como o ponto de partida da nossa API, responsável pela orquestração das chamadas e interações dentro do sistema. Utilizando o framework Flask, este arquivo configura a aplicação web e define as rotas para as diversas funcionalidades, desde a visualização de mapas até a interação por chat.
+
+Este script também integra o Google Gemini para LLM, configurando o ambiente para utilização do modelo generativo de linguagem. Ele garante a segurança e a precisão das respostas fornecidas pelo chatbot, aplicando configurações de segurança rigorosas e aproveitando a avançada capacidade de geração de conteúdo do Gemini para responder de forma inteligente e contextualizada às entradas dos usuários.
+
+### Destaques do `webhook.py`:
+
+- **Configuração do Flask e CORS:** Inicializa o servidor web e permite requisições de diferentes origens.
+- **Integração com Gemini:** Utiliza a API do Google Gemini para criar modelos de linguagem generativos, proporcionando respostas precisas e contextuais através do chatbot.
+- **Rotas Dinâmicas:** Define rotas específicas para funcionalidades de hidrometeorologia e qualidade do ar, cada uma gerando visualizações interativas e relevantes.
+
+Este arquivo é essencial para o funcionamento fluido e seguro do sistema, assegurando que todas as partes da aplicação se comuniquem harmoniosamente e que as respostas geradas sejam de alta qualidade e seguras para os usuários.
+
+
 ## Um Futuro Mais Seguro e Resiliente com IA
 
 Acreditamos que a inteligência artificial tem um papel fundamental na construção de um futuro mais seguro e resiliente diante das mudanças climáticas. Este projeto é um passo importante nessa direção, unindo tecnologia e informação para proteger vidas, o meio ambiente e construir um futuro mais sustentável.
