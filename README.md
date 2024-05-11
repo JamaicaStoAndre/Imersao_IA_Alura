@@ -18,7 +18,7 @@ Nosso projeto também aproveita informações contidas em documentos PDF gerados
 
 ## Respirando Soluções Inteligentes: IA para Monitorar a Qualidade do Ar
 
-![Inserir imagem de um gráfico mostrando a qualidade do ar em diferentes regiões](URL_DA_IMAGEM)
+![Verifique a evolução que podemos chegar ao exibir uma grade de calor com a previsão em um mapa](imagens/Captura de tela de 2024-05-11 00-14-33.png)
 
 A qualidade do ar é outro fator crítico impactado pelas mudanças climáticas e pela ação humana. Nosso projeto utiliza IA para:
 
