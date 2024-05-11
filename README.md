@@ -6,7 +6,7 @@ Este projeto, desenvolvido para Imersão Inteligência Artificial 2ª Edição, 
 
 ## Visão Computacional: Olhando o Clima por Novos Ângulos
 
-![descrição da imagem](https://inovabot.com.br/enchentes-caracteristicas-causas-e-impacto-socio-ambiental-2.jpg)
+![descrição da imagem](imagens/enchentes-caracteristicas-causas-e-impacto-socio-ambiental-2.jpg)
 
 Imagine um sistema que "enxerga" a iminência de uma enchente, mesmo sem sensores no local. Com IA e visão computacional, isso é possível! Nosso projeto utiliza imagens e vídeos para treinar modelos de IA capazes de:
 
